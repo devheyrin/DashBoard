@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{% load static %}
+
+<script>
+    function display2(data2){
+    // --------------------------------------------------------------
+        Highcharts.chart('contianer2', {
+            chart: {
+                type: 'variablepie'
+            },
+            title: {
+                text: 'Countries compared by population density and total area.'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: data2
+            }]
+        });
+
+    // --------------------------------------------------------------
+
+    };
+
+
+    function display(data){
+       // ----------------------------------------------------------
+            Highcharts.chart('container2', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Monthly Average Temperature'
+                },
+                subtitle: {
+                    text: 'Source: WorldClimate.com'
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Temperature (°C)'
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: data
+            });
+       // ----------------------------------------------------------
+    };
+
+    function getdata(){
+        $.ajax({
+            url:'chart1',
+            datatype:'JSON',
+            success:function(data){
+                display(data);
+            }
+        });
+    };
+
+    function getdata2(){
+        $.ajax({
+                    url:'chart2',
+                    datatype:'JSON',
+                    success:function(data2){
+                        display2(data2);
+                    }
+        });
+    };
+
+    $(document).ready(function(){
+
+       $('#b1').click(function(){
+            alert();
+            getdata();
+       });
+
+       $('#b2').click(function(){
+            alert();
+            getdata2();
+       });
+
+
+    });
+
+</script>
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Dashboard 1</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+        <button id="b1">DATA1</button>
+        <button id="b2">DATA2</button>
+
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area me-1"></i>
+                        Monthly Average Temperature
+                    </div>
+                    <div class="card-body">
+                        <div id="container1" width="100%" height="40"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar me-1"></i>
+                        Bar Chart Example
+                    </div>
+                    <div class="card-body">
+                        <div id="contianer2" width="100%" height="40"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
