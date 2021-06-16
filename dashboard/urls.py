@@ -24,7 +24,12 @@ urlpatterns = [
     path('dashboard1', views.dashboard1, name='dashboard1'),
     path('dashboard2', views.dashboard2, name='dashboard2'),
     path('dashboard3', views.dashboard3, name='dashboard3'),
+    path('babydashboard', views.babydashboard, name='babydashboard'),
+    path('dashboard5', views.dashboard5, name='dashboard5'),
+    path('dashboard6', views.dashboard6, name='dashboard6'),
     path('tabledata', views.tabledata, name='tabledata'),
     path('chart1', views.chart1, name='chart1'),
     path('chart2', views.chart2, name='chart2'),
+    path('chart_baby', views.chart_baby, name='chart_baby'),
+    path('pop_increase', views.pop_increase, name='pop_increase'),
 ]

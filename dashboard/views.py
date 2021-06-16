@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
+from analysis.MyAnalysis import MyAnalysis
+
 
 def home(request):
     data = [];
@@ -13,10 +15,10 @@ def home(request):
         person['name'] = 'james' + str(i);
         person['position'] = 'position' + str(i);
         person['office'] = 'office' + str(i);
-        person['agr'] = i;
+        person['age'] = i;
         person['salary'] = i * 100;
         dd = time.time();
-        person['data'] = time.ctime(dd);
+        person['date'] = time.ctime(dd);
         data.append(person);
     context = {
         'section':'main_section.html',
@@ -42,6 +44,25 @@ def dashboard3(request):
     };
     return render(request, 'index.html', context);
 
+def babydashboard(request):
+    context = {
+        'section':'babydashboard.html',
+    };
+    return render(request, 'index.html', context);
+
+def dashboard5(request):
+    context = {
+        'section':'dashboard5.html',
+    };
+    return render(request, 'index.html', context);
+
+def dashboard6(request):
+    context = {
+        'section':'dashboard6.html',
+    };
+    return render(request, 'index.html', context);
+
+
 def tabledata(request):
     print('tabledata')
     data = [];
@@ -50,10 +71,10 @@ def tabledata(request):
         person['name'] = 'james'+str(i);
         person['position'] = 'position' + str(i);
         person['office'] = 'office' + str(i);
-        person['agr'] = i;
+        person['age'] = i;
         person['salary'] = i*100;
         dd = time.time();
-        person['data'] = time.ctime(dd);
+        person['date'] = time.ctime(dd);
         data.append(person);
     print(data);
     return HttpResponse(json.dumps(data),content_type='application/json');
@@ -104,3 +125,11 @@ def chart2(request):
     return HttpResponse(json.dumps(data2),content_type='application/json');
 
 
+def chart_baby(request):
+    data = MyAnalysis().baby();
+    print(data);
+    return HttpResponse(json.dumps(data), content_type='application/json');
+
+def pop_increase(request):
+    data = MyAnalysis().pop3year();
+    return HttpResponse(json.dumps(data), content_type='application/json');
